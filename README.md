@@ -12,21 +12,21 @@ Create a graphical representation of a makefile targets and their dependencies.
 
 
 ## Requirements ##
-..* errr ... practically none :^)
-..* Pretty much any *nix based system or other OS with __make__ & __awk__ ported.
-..* And any tool to view or convert GraphViz's __dot__ format files into an image.
+  * errr ... practically none :^)
+  * Pretty much any *nix based system or other OS with __make__ & __awk__ ported.
+  * And any tool to view or convert GraphViz's __dot__ format files into an image.
 	
 ## Reasons ##
 
-..* Evidence you are doing what you intend without lapses or redundancy.
-..* Figuring out what someone else (or previous self) was thinking.
-..* Live Documentation 
+  * Evidence you are doing what you intend without lapses or redundancy.
+  * Figuring out what someone else (or previous self) was thinking.
+  * Live Documentation 
 
 ## Process ##
 
-..* convert the Makefile into a partial ordered set.
-..* convert a partial ordered set into the dot directed graph format
-..* generate an image of the dot file
+  * convert the Makefile into a partial ordered set.
+  * convert a partial ordered set into the dot directed graph format
+  * generate an image of the dot file
 
 ## Notes ##
 Designed to take the fairly straightforward makefiles 
