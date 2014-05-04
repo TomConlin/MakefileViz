@@ -45,7 +45,7 @@ you can also invoke the **introspect_clean** target to delete the files created.
 Call the awk scripts yourself on the command line 
 without needing to include anything in the makefile. something like:
 ```	
-$ makefile2po.awk _yourmakefile_ | potodot.awk -v "TAG=_graphname_" | dot -Tpng -o _graphname.png_
+$ makefile2po.awk yourmakefile | potodot.awk -v "TAG=graphname" | dot -Tpng -o graphname.png
 ```
 
 This gives an easy opportunity to filter out  or modify labels before the pipe to __potodot.awk__
@@ -57,7 +57,7 @@ to keep housekeeping nodes & edges from cluttering up the graph.
 
 Other uses include topologically sorting the makefile labels to help find critical paths
 ```	
-$ makefile2po.awk <yourmakefile> | tsort
+$ makefile2po.awk yourmakefile | tsort
 ```
 
 Or use __potodot.awk__ to turn _any_ reasonable list of pairs into a graph!
