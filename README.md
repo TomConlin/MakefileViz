@@ -25,7 +25,7 @@ Create a graphical representation of a makefile targets and their dependencies.
 
 ## Process ##
 
-  * convert the Makefile into a partial ordered set.
+  * convert the Makefile into a partially ordered set.
   * convert a partial ordered set into the dot directed graph format
   * generate an image of the dot file
 
@@ -35,47 +35,48 @@ Create a graphical representation of a makefile targets and their dependencies.
 ###One Way###
 __include__  __introspect.makefile__ in your makefile
 (or another file included by your makefile) 
-adjust paths to dot and the awk scripts if necessary
-	
-then  issue  
-```make introspect```
+adjust paths to dot and the awk scripts if necessary, then  issue  
+```$ make introspect```
 		
 you can also invoke the **introspect_clean** target to delete the files created.
 
 
 ###Another Way###
-Just call the awk scripts yourself on the command line 
+Call the awk scripts yourself on the command line 
 without needing to include anything in the makefile. something like:
 ```	
-makefile2po.awk <yourmakefile> | potodot.awk -v TAG=<graphname> | dot -Tpng -o <grapname.png>
+$ makefile2po.awk _yourmakefile_ | potodot.awk -v "TAG=_graphname_" | dot -Tpng -o _graphname.png_
 ```
 
 This gives an easy opportunity to filter out  or modify labels before the pipe to __potodot.awk__
-ex.  ```makefile2po.awk <yourmakefile> | grep -vE "PHONY|clean" | potodot.awk ...```
+
+ex:  
+```$ makefile2po.awk yourmakefile | grep -vE "PHONY|clean" | potodot.awk ...```
 
 to keep housekeeping nodes & edges from cluttering up the graph.
 
 Other uses include topologically sorting the makefile labels to help find critical paths
 ```	
-makefile2po.awk <yourmakefile> | tsort
+$ makefile2po.awk <yourmakefile> | tsort
 ```
 
 Or use __potodot.awk__ to turn _any_ reasonable list of pairs into a graph!
 
-(where reasonable is defined by what the GraphViz dot format accepts as labels) 
+(where reasonable is defined by what the GraphViz dot format accepts as node labels) 
 
 
 ## Notes ##
 Designed to take the fairly straightforward makefiles 
 I tend to generate building data processing workflows
-and reduce them to a simplified 'edge list' or 'partially ordered set'. 
+and reduce them to a simplified 'adjacency list' aka 'partially ordered set'.
 
 Currently excluding nodes not participating in an edge but I may revisit that.
 
 Depending on how you want to look at it
-  * root nodes (things expected to just exist) are displayed as rectangular boxes
+  * root nodes are displayed as rectangular boxes
   * interior nodes are ovals
-  * leaf nodes are __bolded__ ovals 
+  * leaf nodes are __bolded__ ovals
+  * dependency arrows point to targets that required them 
 
 ###Limitations###
 It is just using _pattern matching_, not full on parsing of makefiles. 
