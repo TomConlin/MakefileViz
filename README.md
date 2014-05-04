@@ -9,7 +9,6 @@ Resurrected spring 2014 in a more open environment and released into the wild.
 
 Create a graphical representation of a makefile targets and their dependencies.
 
-![GitHub Logo](/images/logo.png)
 ![Sample MakefileViz ourput](https://raw.githubusercontent.com/TomConlin/MakefileViz/master/makefile.png)
 
 
