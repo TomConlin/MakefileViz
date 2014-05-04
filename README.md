@@ -1,4 +1,3 @@
-
 # MakefileViz #
 
 ## Background ##
@@ -9,6 +8,9 @@ Resurrected spring 2014 in a more open environment and released into the wild.
 ## Goal ##
 
 Create a graphical representation of a makefile targets and their dependencies.
+
+![GitHub Logo](/images/logo.png)
+![Sample MakefileViz ourput](https://raw.githubusercontent.com/TomConlin/MakefileViz/master/makefile.png)
 
 
 ## Requirements ##
@@ -31,9 +33,10 @@ Create a graphical representation of a makefile targets and their dependencies.
  
 ##Usage ##
 
-###First Way###
-__include__ the __introspect.makefile__ in your makefile
-(or another file included by your makefile)
+###One Way###
+__include__  __introspect.makefile__ in your makefile
+(or another file included by your makefile) 
+adjust paths to dot and the awk scripts if necessary
 	
 then  issue  
 ```make introspect```
@@ -41,24 +44,26 @@ then  issue
 you can also invoke the **introspect_clean** target to delete the files created.
 
 
-###Second Way###
-Another way to is to just call the scripts yourself on the command line 
-without needing to include anything. something like:
+###Another Way###
+Just call the awk scripts yourself on the command line 
+without needing to include anything in the makefile. something like:
 ```	
 makefile2po.awk <yourmakefile> | potodot.awk -v TAG=<graphname> | dot -Tpng -o <grapname.png>
 ```
 
-This gives an easy opportunity to filter out  or modify labels before the pipe to potodot.awk
+This gives an easy opportunity to filter out  or modify labels before the pipe to __potodot.awk__
 ex.  ```makefile2po.awk <yourmakefile> | grep -vE "PHONY|clean" | potodot.awk ...```
-to omit housekeeping labels.
 
-Another use could be for topologically sorting the makefile labels to help find critical paths
+to keep housekeeping nodes & edges from cluttering up the graph.
+
+Other uses include topologically sorting the makefile labels to help find critical paths
 ```	
 makefile2po.awk <yourmakefile> | tsort
 ```
 
-Or use __ potodot.awk__ to turn _any_ reasonable list of pairs into a graph!
-(where reasonable is defined by what the GraphViz dot format accepts) 
+Or use __potodot.awk__ to turn _any_ reasonable list of pairs into a graph!
+
+(where reasonable is defined by what the GraphViz dot format accepts as labels) 
 
 
 ## Notes ##
@@ -66,12 +71,19 @@ Designed to take the fairly straightforward makefiles
 I tend to generate building data processing workflows
 and reduce them to a simplified 'edge list' or 'partially ordered set'. 
 
-###Limitation###
+Currently excluding nodes not participating in an edge but I may revisit that.
+
+Depending on how you want to look at it
+  * root nodes (things espected to just exist) are displayed as rectangular boxes
+  * interior nodes are ovals
+  * leaf nodes are __bolded__ ovals 
+
+###Limitations###
 It is just using _pattern matching_, not full on parsing of makefiles. 
 So it will not understand suffix rules, conditionals or looping etc.
 
 It will remove all the decorations (non alphanumeric and underscore) from the labels
 so your labels should not only differ by decoration if that is important.
-i.e. nodes that are not the same being collapsed together	
+i.e. nodes that are not the same being collapsed together.	
 
 
