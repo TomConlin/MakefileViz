@@ -13,7 +13,7 @@ Create a graphical representation of a makefile targets and their dependencies.
 
 
 ## Requirements ##
-  * errr ... practically none :^)
+  * errr ... practically none (_"We don't need no steenking requirements"_)
   * Pretty much any *nix based system or other OS with __make__ & __awk__ ported.
   * And any tool to view or convert GraphViz's __dot__ format files into an image.
 	
@@ -73,7 +73,7 @@ and reduce them to a simplified 'edge list' or 'partially ordered set'.
 Currently excluding nodes not participating in an edge but I may revisit that.
 
 Depending on how you want to look at it
-  * root nodes (things espected to just exist) are displayed as rectangular boxes
+  * root nodes (things expected to just exist) are displayed as rectangular boxes
   * interior nodes are ovals
   * leaf nodes are __bolded__ ovals 
 
