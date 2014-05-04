@@ -9,7 +9,7 @@ DOT = /usr/bin/dot  # CHANGEME
 # not finding a way to get the path of an included file. so ...
 # where the awk files live is.  
 
-VPATH = /home/tomc/bin/  # CHANGEME
+VPATH = ~/bin/  # CHANGEME
 
 .PHONY : introspect
 
@@ -17,8 +17,9 @@ VPATH = /home/tomc/bin/  # CHANGEME
 SELF = $(word 1 ,$(MAKEFILE_LIST))
 
 $(SELF).partial_order: $(SELF) makefile2po.awk
-	@ makefile2po.awk $(SELF) | sort -u > $@
-	@ # making unique & rearanging the set can't hurt
+	@ makefile2po.awk $(SELF) > $@
+	@ # making unique & rearanging with sort -u 
+	@ # could hide parallel edges. so not doing.
 
 $(SELF).dot: potodot.awk $(SELF).partial_order
 	@  potodot.awk -v "TAG=`pwd`" $(SELF).partial_order > $@

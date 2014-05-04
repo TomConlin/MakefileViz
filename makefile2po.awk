@@ -35,14 +35,14 @@ BEGIN{OFS="\t"}
 
 # if the (modified) line appears to be:  <target> : [dependent [dependent ...]] 
 # strip cruft of the words and output them a pair per line target second 
-# note on other systems it wanted hex \09 instead of the current \011 octal
+# note on past systems awk wanted hex \09 instead of the current \011 octal
 /^[^\011:][^:]*:.*/  {
 	t=simplify($1);
 	for(n=2;n<=NF;n++){
 		s=simplify($n);
 		if((s!="")&&(t!="")){
 			print s,t
-		}
+		}# else non-edge
 	}
 } 
 {} # thats all
