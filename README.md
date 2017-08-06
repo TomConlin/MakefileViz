@@ -33,20 +33,23 @@ Create a graphical representation of a makefile targets and their dependencies.
 ## Usage ##
 
 ### One Way ###
-__include__  __introspect.makefile__ in your makefile
-(or another file included by your makefile) 
-adjust paths to dot and the awk scripts if necessary, then  issue
+__include__  __introspect.makefile__ in your makefile  
+(or another file included by your makefile)   
+adjust paths to dot and the awk scripts if necessary,  
+then  issue
 
 
-``` make introspect  
+```
+    make introspect  
 ```
 
 you can also invoke the **introspect_clean** target to delete the files created.
 
 
 ### Another Way ###
-Call the awk scripts yourself on the command line 
-without needing to include anything in the makefile. something like:
+Call the awk scripts yourself on the command line   
+without needing to include anything in the makefile.  
+something like:
 
 ```
    makefile2po.awk yourmakefile | potodot.awk -v "TAG=graphname" | dot -Tpng -o graphname.png
@@ -81,15 +84,17 @@ and reduce them to a simplified 'adjacency list' aka 'partially ordered set'.
 Currently excluding nodes not participating in an edge but I may revisit that.
 
 Depending on how you want to look at it
+
   * root nodes are displayed as rectangular boxes
   * interior nodes are ovals
   * leaf nodes are __bolded__ ovals
   * dependency arrows point to targets that required them 
 
 ### Limitations ###
-It is just using _pattern matching_, not full on parsing of makefiles. 
+It is just using _pattern matching_, not full on parsing of makefiles.   
 So it will not understand suffix rules, conditionals or looping etc.
 
-It will remove all the decorations (non alphanumeric and underscore) from the labels
-so your labels should not only differ by decoration if that is important.
+It will remove all the decorations (non alphanumeric and underscore)  
+from the labels
+so your labels should not only differ by decoration if that is important.  
 i.e. nodes that are not the same being collapsed together.	
