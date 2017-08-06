@@ -13,10 +13,10 @@ Create a graphical representation of a makefile targets and their dependencies.
 
 
 ## Requirements ##
-  * errr ... practically none (_"We don't need no steenking requirements"_)
-  * Pretty much any *nix based system or other OS with __make__ & __awk__ ported.
-  * And any tool to view or convert GraphViz's __dot__ format files into an image.
-	
+  * errr ... practically none (_"We don't need no steenking requirements"_) 
+  * Pretty much any *nix based system or other OS with __make__ & __awk__ ported.  
+  * And any tool to view or convert GraphViz's __dot__ format files into an image.  
+
 ## Reasons ##
 
   * Evidence you are doing what you intend without lapses or redundancy.
@@ -30,34 +30,42 @@ Create a graphical representation of a makefile targets and their dependencies.
   * generate an image of the dot file
 
  
-##Usage ##
+## Usage ##
 
-###One Way###
+### One Way ###
 __include__  __introspect.makefile__ in your makefile
 (or another file included by your makefile) 
-adjust paths to dot and the awk scripts if necessary, then  issue  
-```$ make introspect```
-		
+adjust paths to dot and the awk scripts if necessary, then  issue
+
+
+``` make introspect  
+```
+
 you can also invoke the **introspect_clean** target to delete the files created.
 
 
-###Another Way###
+### Another Way ###
 Call the awk scripts yourself on the command line 
 without needing to include anything in the makefile. something like:
-```	
-$ makefile2po.awk yourmakefile | potodot.awk -v "TAG=graphname" | dot -Tpng -o graphname.png
+
+```
+   makefile2po.awk yourmakefile | potodot.awk -v "TAG=graphname" | dot -Tpng -o graphname.png
 ```
 
 This gives an easy opportunity to filter out  or modify labels before the pipe to __potodot.awk__
 
-ex:  
-```$ makefile2po.awk yourmakefile | grep -vE "PHONY|clean" | potodot.awk ...```
+ex:
+
+```
+    makefile2po.awk yourmakefile | grep -vE "PHONY|clean" | potodot.awk ...
+```
 
 to keep housekeeping nodes & edges from cluttering up the graph.
 
 Other uses include topologically sorting the makefile labels to help find critical paths
-```	
-$ makefile2po.awk yourmakefile | tsort
+
+```
+   makefile2po.awk yourmakefile | tsort
 ```
 
 Or use __potodot.awk__ to turn _any_ reasonable list of pairs into a graph!
@@ -78,12 +86,10 @@ Depending on how you want to look at it
   * leaf nodes are __bolded__ ovals
   * dependency arrows point to targets that required them 
 
-###Limitations###
+### Limitations ###
 It is just using _pattern matching_, not full on parsing of makefiles. 
 So it will not understand suffix rules, conditionals or looping etc.
 
 It will remove all the decorations (non alphanumeric and underscore) from the labels
 so your labels should not only differ by decoration if that is important.
 i.e. nodes that are not the same being collapsed together.	
-
-
