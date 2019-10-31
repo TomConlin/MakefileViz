@@ -1,15 +1,15 @@
-#! /bin/awk -f 
+#!/usr/bin/env -S awk -f 
 
 # For including the calling directory as metadata
 # does not work in shebang line, move to outside call
-# -v TAG=`pwd` 
+# -v TAG=`pwd`
 # -v TAG=${PWD##*/}  -> Last dir only
 
 # usage: potodot.awk -v TAG=`pwd` <file.po>
 # convert a partial order (edge list) into a graphviz dot digraph
 
 BEGIN {
-	# I'm choosing to pass the current directory as variable TAG, 
+	# I'm choosing to pass the current directory as variable TAG,
 	# but whatever works, the name is not really used here
 	# but helps to keep track of where something came from
 
@@ -17,12 +17,12 @@ BEGIN {
 	print "","digraph " gname[z] " {\n/***";
 	printf("%s", "\t");
 	system("date");
-	print "\t",TAG  "\n***/" 
-	
+	print "\t",TAG  "\n***/"
+
 	r=0;l=0;
 	OFS="\t"
 }
-#!/.*PHONY|clean/ 
+#!/.*PHONY|clean/
 { # avoid house keeping dependencies
 	print "", $1 " -> " $2 " ;";
 	leaf[l++]=$1;root[r++]=$2
